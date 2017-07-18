@@ -45,9 +45,4 @@ public class Apple {
         System.out.println(
                 "Color = " + this.getColor() + ", weight = " + this.getWeight() + ", variety = " + this.getVariety());
     }
-
-    //- Function to sort apples by color and return a sorted list ------------------------------------------------------
-    public void getApplesSortedByColor(Apple[] appleList){
-        //TODO
-    }
 }

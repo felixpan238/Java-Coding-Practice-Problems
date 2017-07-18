@@ -11,11 +11,6 @@ public class TestApple {
     //- Main apple test functions ---------------------------------------------------------------------------------------
     public static void main(String[] args) {
 
-        // Creates an instance of object apples and prints out it's properties
-
-//        Apple apple1 = new Apple("green", 10, "Green Delicious");
-//        apple1.printAppleProperties();
-
         // Generates a List of Apples
         List<Apple> appleList = Arrays.asList(
                 new Apple("red", 10, "Gala"),
