@@ -26,34 +26,23 @@ public class TestEmployee {
                 new Employee("Bob", 35, 80000, Employee.Position.MANAGER),
                 new Employee("Carl", 50, 100000, Employee.Position.SENIOR_MANAGER),
                 new Employee("David", 24, 51000, Employee.Position.DEVELOPER),
-                new Employee("Elvis", 27, 52000, Employee.Position.DEVELOPER)
+                new Employee("Elvis", 27, 52000, Employee.Position.DEVELOPER),
+                new Employee("Fred", 36, 81000, Employee.Position.MANAGER),
+                new Employee("Gary", 63, 200000, Employee.Position.CEO)
         );
 
         //- Test calls -------------------------------------------------------------------------------------------------
-        //Prints out a single employee
-        employee1.printEmployeeProperties();
-//        employee1.printEmployeeProperties();
-
-        //Prints out full List of Employees
-//        printEmployeeList(employeeList);
-
-        //Prints out the properties of the highest paid Employee
-//        printEmployeeList(employeeList);
-
-        //Prints out a list of all MANAGERs
-//        findHighestPaidEmpoyee(employeeList).printEmployeeProperties();
-
-        //Finds and prints Employee from a List from a given name
-//        findEmployeeByName(employeeList, "Albert").printEmployeeProperties();
+        //Finds and prints the Employee with the highest salary
         System.out.println ();
         System.out.println ("The highest paid employee is:");
         findHighestPaidEmpoyee(employeeList).printEmployeeProperties();
 
         //Prints out a list of all MANAGERs using Lambdas
-        System.out.println ();
-        System.out.println ("All the employee who are managers are:");
-        performAllEmployeesByCondition(employeeList, p -> p.getPosition() == Employee.Position.MANAGER, p -> p.printEmployeeProperties());
-
+        System.out.println(System.lineSeparator() + "The following employees are all the Managers:");
+        Employee.Position searchFilter = Employee.Position.MANAGER;
+        employeeList.parallelStream()
+                .filter(employee -> employee.getPosition() == searchFilter)
+                .forEach(Employee::printEmployeeProperties);
 
         //Finds and prints Employee from a List from a given name
         System.out.println ();
@@ -74,7 +63,6 @@ public class TestEmployee {
         }
     }
 
-    //- Function to print all the MANAGERs from a List of Employees ----------------------------------------------------
     //- Function to return the highest paid Employee Object ------------------------------------------------------------
     private static Employee findHighestPaidEmpoyee(List<Employee> employeeList){
         Employee highestPaidEmployee = employeeList.get(0);
@@ -85,28 +73,6 @@ public class TestEmployee {
         }
         return highestPaidEmployee;
     }
-
-    //- Function to print all the MANAGERs from a List of Employees ----------------------------------------------------
-    private static void printAllManagers(List<Employee> employeeList) {
-        for (Employee employee : employeeList) {
-            if (employee.getPosition() == Employee.Position.MANAGER) {
-                System.out.println("Name: " + employee.getName() + ", Age: " + employee.getAge() + ", Salary: " +
-                        employee.getSalary() + ", Position: " + employee.getPosition());
-            }
-        }
-    }
-
-                //Deprecated after use of Lambdas. Addition functionality given. Search for a list of employee by any condition.
-//    //- Function to print all the MANAGERs from a List of Employees ----------------------------------------------------
-//    private static void printAllManagers(List<Employee> employeeList){
-//        for (Employee employee : employeeList){
-//            if(employee.getPosition() == Employee.Position.MANAGER) {
-//                System.out.println("Name: " + employee.getName() + ", Age: " + employee.getAge() + ", Salary: " +
-//                        employee.getSalary() + ", Position: " + employee.getPosition());
-//            }
-//        }
-//    }
-// }
 
     //- Function to print all Employees from a list that meet a condition ----------------------------------------------
     private static void performAllEmployeesByCondition(List<Employee> employeeList, Predicate<Employee> condition, Consumer<Employee> consumer){
