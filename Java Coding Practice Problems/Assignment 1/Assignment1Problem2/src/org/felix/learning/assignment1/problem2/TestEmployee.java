@@ -30,7 +30,7 @@ public class TestEmployee {
                 new Employee("Gary", 63, 200000, Employee.Position.CEO)
         );
 
-        //- Test calls -------------------------------------------------------------------------------------------------
+        //- Problem 2 Solutions ----------------------------------------------------------------------------------------
         //Finds and prints the Employee with the highest salary
         System.out.println ();
         System.out.println ("The highest paid employee is:");
@@ -46,7 +46,6 @@ public class TestEmployee {
         System.out.println(System.lineSeparator() + "The following employees are all the Managers:");
         Employee.Position searchPosition = Employee.Position.MANAGER;
         printService(employeeList, employee -> employee.getPosition() == searchPosition);
-
         // Does what the line above does without the use of printService below
 //        employeeList.parallelStream()
 //                .filter(employee -> employee.getPosition() == searchPosition)
@@ -57,7 +56,6 @@ public class TestEmployee {
         System.out.println ("Search result for name David:");
         String searchName = "David";
         printService(employeeList, employee -> employee.getName() == searchName);
-
         // Does what the line above does without the use of printService below
 //        employeeList.parallelStream()
 //                .filter(employee -> employee.getName() == searchName)
@@ -72,6 +70,7 @@ public class TestEmployee {
         }
     }
 
+    //- Function to print the services that interface EmployeeServices -------------------------------------------------
     private static void printService(List<Employee> employeeList, EmployeeService service){
         for (Employee employee : employeeList){
             if (service.service(employee)){
