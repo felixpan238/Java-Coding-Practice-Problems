@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+import java.lang.Long;
 
 /**
  * Created by Felix on 2017-07-12.
@@ -35,24 +34,34 @@ public class TestEmployee {
         //Finds and prints the Employee with the highest salary
         System.out.println ();
         System.out.println ("The highest paid employee is:");
-        findHighestPaidEmpoyee(employeeList).printEmployeeProperties();
+        Collections.sort(employeeList, new Comparator<Employee>() {
+            @Override
+            public int compare(Employee employee1, Employee employee2) {
+                return Long.compare(employee2.getSalary(), employee1.getSalary());
+            }
+        });
+        employeeList.get(0).printEmployeeProperties();
 
-        //Prints out a list of all MANAGERs using Lambdas
+        //Prints out a list of all MANAGERs
         System.out.println(System.lineSeparator() + "The following employees are all the Managers:");
-        Employee.Position searchFilter = Employee.Position.MANAGER;
-        employeeList.parallelStream()
-                .filter(employee -> employee.getPosition() == searchFilter)
-                .forEach(Employee::printEmployeeProperties);
+        Employee.Position searchPosition = Employee.Position.MANAGER;
+        printService(employeeList, employee -> employee.getPosition() == searchPosition);
+
+        // Does what the line above does without the use of printService below
+//        employeeList.parallelStream()
+//                .filter(employee -> employee.getPosition() == searchPosition)
+//                .forEach(Employee::printEmployeeProperties);
 
         //Finds and prints Employee from a List from a given name
         System.out.println ();
         System.out.println ("Search result for name David:");
-        findEmployeeByName(employeeList, "David").printEmployeeProperties();
+        String searchName = "David";
+        printService(employeeList, employee -> employee.getName() == searchName);
 
-        //Sorts and prints out an Employee list alphabetically by name
-//        sortEmployeeAlphbeticallyByName(employeeList);
-//        printEmployeeList(employeeList);
-
+        // Does what the line above does without the use of printService below
+//        employeeList.parallelStream()
+//                .filter(employee -> employee.getName() == searchName)
+//                .forEach(Employee::printEmployeeProperties);
     }
 
     //- Function to print List of Employees ----------------------------------------------------------------------------
@@ -63,45 +72,16 @@ public class TestEmployee {
         }
     }
 
-    //- Function to return the highest paid Employee Object ------------------------------------------------------------
-    private static Employee findHighestPaidEmpoyee(List<Employee> employeeList){
-        Employee highestPaidEmployee = employeeList.get(0);
+    private static void printService(List<Employee> employeeList, EmployeeService service){
         for (Employee employee : employeeList){
-            if(employee.getSalary() > highestPaidEmployee.getSalary()){
-                highestPaidEmployee = employee;
-            }
-        }
-        return highestPaidEmployee;
-    }
-
-    //- Function to print all Employees from a list that meet a condition ----------------------------------------------
-    private static void performAllEmployeesByCondition(List<Employee> employeeList, Predicate<Employee> condition, Consumer<Employee> consumer){
-        for (Employee employee : employeeList){
-            if(condition.test(employee)) {
-                consumer.accept(employee);
+            if (service.service(employee)){
+                employee.printEmployeeProperties();
             }
         }
     }
 
-    //- Function to find an Employee from a List by a given name -------------------------------------------------------
-    private static Employee findEmployeeByName(List<Employee> employeeList, String searchName){
-        for (Employee employee : employeeList){
-            if(employee.getName() == searchName) {
-                Employee foundEmployee = employee;
-                return foundEmployee;
-            }
-        }
-        return null;
+    // - Interface for EmployeeService Lambas --------------------------------------------------------------------------
+    public interface EmployeeService {
+        Boolean service(Employee employee);
     }
-
-    //- Function to sort Employees List by name -------------------------------------------------------------------------
-    private static void sortEmployeeAlphbeticallyByName(List<Employee> employeeList){
-        Collections.sort(employeeList, new Comparator<Employee>(){
-            public int compare(Employee employee1, Employee employee2) {
-                return employee1.getName().compareTo(employee2.getName());
-            }
-        });
-        Collections.sort(employeeList, (employee1, employee2) -> employee1.getName().compareTo(employee2.getName()));
-    }
-
 }
