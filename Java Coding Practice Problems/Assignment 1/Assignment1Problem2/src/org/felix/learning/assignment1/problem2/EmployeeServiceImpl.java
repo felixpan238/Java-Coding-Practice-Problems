@@ -33,5 +33,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employees.parallelStream()
                 .filter(employee -> employee.getName() == name)
                 .forEach(Employee::printEmployeeProperties);
+        // The following code only prints the first employee that matches the search name (Assignment said first)
+//        for (Employee employee : employees) {
+//            if (employee.getName() == name){
+//                employee.printEmployeeProperties();
+//                break;
+//            }
+//        }
     }
 }
