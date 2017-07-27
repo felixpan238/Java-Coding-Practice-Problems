@@ -15,20 +15,13 @@ public class EmployeeServiceTest {
 
         // Generates a List of Employees
         List<Employee> employeeList = new ArrayList<>();
-        Employee employee1 = new Employee("Albert", 25, 50000, Employee.Position.DEVELOPER);
-        Employee employee2 = new Employee("Bob", 35, 80000, Employee.Position.MANAGER);
-        Employee employee3 = new Employee("Carl", 50, 100000, Employee.Position.SENIOR_MANAGER);
-        Employee employee4 = new Employee("David", 24, 51000, Employee.Position.DEVELOPER);
-        Employee employee5 = new Employee("Elvis", 27, 52000, Employee.Position.DEVELOPER);
-        Employee employee6 = new Employee("Fred", 36, 81000, Employee.Position.MANAGER);
-        Employee employee7 = new Employee("Gary", 63, 200000, Employee.Position.CEO);
-        employeeList.add(employee1);
-        employeeList.add(employee2);
-        employeeList.add(employee3);
-        employeeList.add(employee4);
-        employeeList.add(employee5);
-        employeeList.add(employee6);
-        employeeList.add(employee7);
+        employeeList.add( new Employee("Albert", 25, 50000, Employee.Position.DEVELOPER));
+        employeeList.add( new Employee("Bob", 35, 80000, Employee.Position.MANAGER));
+        employeeList.add( new Employee("Carl", 50, 100000, Employee.Position.SENIOR_MANAGER));
+        employeeList.add( new Employee("David", 24, 51000, Employee.Position.DEVELOPER));
+        employeeList.add( new Employee("Elvis", 27, 52000, Employee.Position.DEVELOPER));
+        employeeList.add( new Employee("Fred", 36, 81000, Employee.Position.MANAGER));
+        employeeList.add( new Employee("Gary", 63, 200000, Employee.Position.CEO));
 
         // Prints maximum salary using the getMaximumSalary method in EmployeeServiceImpl
         System.out.println(System.lineSeparator() + "The maximum salary is:");
